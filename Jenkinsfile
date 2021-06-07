@@ -42,6 +42,7 @@ pipeline {
      booleanParam(name: 'sag_pagos_ms',
       defaultValue: false,
       description: '')
+    separator(name: "testing")
      booleanParam(name: 'sag_ui',
       defaultValue: true,
       description: '')
