@@ -47,7 +47,8 @@ pipeline {
      
       steps {
         script {
-          if( params.RESTSERVICE != ''){
+           echo "${params.RESTSERVICE}"
+          if( params.RESTSERVICE !== ''){
               ms=[params.RESTSERVICE]
               ms.each {
                 dir(path: "backend/${it}") {
