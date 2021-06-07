@@ -1,6 +1,11 @@
 pipeline {
   agent any
   parameters {
+     choice(
+                choices: ['integracion', 'release'],
+                description: 'Cual es su accion o destino?',  
+                name: 'STAGE'
+              )
     choice(name: 'door_choice',
       choices: 'one\ntwo\nthree\nfour',
       description: 'What door do you choose?')
