@@ -9,7 +9,7 @@
   def ms_mantenedores = ['sag-mantenedores-ms']; 
   def ms_notificacion = ['sag-notificacion-ms'];
   def ms_solicitudes = ['sag-solicitudes-ms'];
-
+  def ms=[];
 
 pipeline {
   agent any
@@ -20,28 +20,11 @@ pipeline {
               )
     string(name: 'VERSION',
       defaultValue: '',
-      description: 'Version? por ejemplo 0.0.1-SNAPSHOT si es integracion o 0.0.1 si es release')
-    booleanParam(name: 'cuenta_corriente_ms',
-      defaultValue: false,
-      description: '')
-    booleanParam(name: 'sag_bitacora_ms',
-      defaultValue: false,
-      description: '')
-   booleanParam(name: 'sag_emisiongiro_ms',
-      defaultValue: false,
-      description: '')
-     booleanParam(name: 'sag_mantenedores_ms',
-      defaultValue: false,
-      description: '')
-     booleanParam(name: 'sag_notificacion_ms',
-      defaultValue: false,
-      description: '')
-     booleanParam(name: 'sag_solicitudes_ms',
-      defaultValue: false,
-      description: '')
-     booleanParam(name: 'sag_pagos_ms',
-      defaultValue: false,
-      description: '')
+      description: 'Version? por ejemplo 0.0.1-SNAPSHOT si es integracion o 0.0.1 si es release')   
+     choice(    name: 'REST',
+                choices: ['','sag-giros-ms','cuenta-corriente-ms','sag-bitacora-ms','sag-emisiongiro-ms','sag-solicitudes-ms','sag-notificacion-ms','sag-pagos-ms'],
+                description: 'Seleccione microservicio'                
+              )    
      booleanParam(name: 'sag_ui',
       defaultValue: true,
       description: '')
@@ -69,6 +52,23 @@ pipeline {
       }
     }
     
+     stage('Build Backend') {
+     
+      steps {
+        script {
+          if( params.RESTSERVICE != ''){
+              ms=[params.RESTSERVICE]
+              ms.each {
+                dir(path: "backend/${it}") {
+                  echo "${it}"
+                }  // end dir
+              } // end for
+          }else{
+            error "Debe seleccionar un microservicio!"
+          }
+        }
+      } // end step
+    } // end stage 
     
   }
 }
