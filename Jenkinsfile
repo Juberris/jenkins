@@ -8,7 +8,7 @@ pipeline {
     string(name: 'VERSION',
       defaultValue: '',
       description: 'Version? por ejemplo 0.0.1-SNAPSHOT si es integracion o 0.0.1 si es release')
-    booleanParam(name: 'cuenta-corriente-ms',
+    booleanParam(name: 'cuenta_corriente_ms',
       defaultValue: true,
       description: '')
    
@@ -19,7 +19,7 @@ pipeline {
         echo 'Hello World!'
         echo "Trying: ${params.STAGE}"
         echo "We can dance: ${params.VERSION}"
-        echo "The DJ says: ${params.cuenta-corriente-ms}"
+        echo "The DJ says: ${params.cuenta_corriente_ms}"
       }
     }
   }
