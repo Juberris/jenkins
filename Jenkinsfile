@@ -47,13 +47,28 @@ pipeline {
       description: '')
   }
   stages {
-    stage('Example') {
+    
+     stage ('Validate Version') {
       steps {
-        echo 'Hello World!'
-        echo "Trying: ${params.STAGE}"
-        echo "We can dance: ${params.VERSION}"
-        echo "The DJ says: ${params.cuenta_corriente_ms}"
+        script {
+          // tenemos que validar que la version sea valida y del formato requerido
+          def current_tag = params.VERSION
+          def snapshot = current_tag.endsWith("-SNAPSHOT")
+          if(!current_tag || current_tag == '' || (params.STAGE == 'integracion' && !snapshot) || (params.STAGE == 'release' && snapshot)){
+              error "Se requiere setear version y debe estar en formato X.Y.Z-SNAPSHOT si es integracion o X.Y.Z si es release: ${params.VERSION}" 
+          } else{
+            def major = (current_tag =~ /\d+\.\d+\.\d+[-]?(alpha|rc)?(\d)?{1,2}/)
+            if (major) { 
+              // significa que cumple con la regla de tag en nombrado y es deployable.
+              println major.group()
+            } else {
+              error "Tag sin formato valido : ${params.VERSION} " 
+            }              
+          }
+        }
       }
     }
+    
+    
   }
 }
