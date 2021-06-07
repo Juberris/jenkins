@@ -1,20 +1,17 @@
 pipeline {
   agent any
   parameters {
-     choice(
+     choice(    name: 'STAGE',
                 choices: ['integracion', 'release'],
-                description: 'Cual es su accion o destino?',  
-                name: 'STAGE'
+                description: 'Cual es su accion o destino?'                
               )
-    choice(name: 'door_choice',
-      choices: 'one\ntwo\nthree\nfour',
-      description: 'What door do you choose?')
-    booleanParam(name: 'CAN_DANCE',
+    string(name: 'VERSION',
+      defaultValue: '',
+      description: 'Version? por ejemplo 0.0.1-SNAPSHOT si es integracion o 0.0.1 si es release')
+    booleanParam(name: 'cuenta-corriente-ms',
       defaultValue: true,
       description: 'Checkbox parameter')
-    string(name: 'sTrAnGePaRaM',
-      defaultValue: 'Dance!',
-      description: 'Do the funky chicken!')
+   
   }
   stages {
     stage('Example') {
