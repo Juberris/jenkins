@@ -1,14 +1,5 @@
   // proyectos front end
-  def ui = ['sag-ui']; 
-  // proyectos backend (nombres de directorios)
- 
-  def ms_cta_cte = ['cuenta-corriente-ms'];
-  def ms_bitacora = ['sag-bitacora-ms']; 
-  def ms_emision = ['sag-emisiongiro-ms'];
-  def ms_giros = ['sag-giros-ms']; 
-  def ms_mantenedores = ['sag-mantenedores-ms']; 
-  def ms_notificacion = ['sag-notificacion-ms'];
-  def ms_solicitudes = ['sag-solicitudes-ms'];
+  def ui = ['sag-ui'];   
   def ms=[];
 
 pipeline {
@@ -21,7 +12,7 @@ pipeline {
     string(name: 'VERSION',
       defaultValue: '',
       description: 'Version? por ejemplo 0.0.1-SNAPSHOT si es integracion o 0.0.1 si es release')   
-     choice(    name: 'REST',
+     choice(    name: 'MICROSERVICIO',
                 choices: ['','sag-giros-ms','cuenta-corriente-ms','sag-bitacora-ms','sag-emisiongiro-ms','sag-solicitudes-ms','sag-notificacion-ms','sag-pagos-ms'],
                 description: 'Seleccione microservicio'                
               )    
