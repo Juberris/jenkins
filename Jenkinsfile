@@ -47,9 +47,9 @@ pipeline {
      
       steps {
         script {
-           echo "${params.RESTSERVICE}"
-          if( params.RESTSERVICE !== ''){
-              ms=[params.RESTSERVICE]
+           echo "${params.MICROSERVICIO}"
+          if( params.MICROSERVICIO !== ''){
+              ms=[params.MICROSERVICIO]
               ms.each {
                 dir(path: "backend/${it}") {
                   echo "${it}"
